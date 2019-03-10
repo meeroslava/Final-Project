@@ -376,7 +376,11 @@ template {
 [hidden] {
     display: none !important;
 }
+.table-subject{
 
+    width: 500px;
+
+}
 @media print {
     *,
     *::before,
@@ -14896,6 +14900,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .main-panel {
+    margin-top: 15px;
     position: relative;
     float: right;
     width: calc(100% - 260px);
