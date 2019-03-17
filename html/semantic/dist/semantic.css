@@ -22,6 +22,10 @@
 /*******************************
              Reset
 *******************************/
+/* dropdown-filters */
+.dropdown-filter{
+  padding: 10px;
+}
 
 /* Border-Box */
 
@@ -32716,6 +32720,7 @@ select.ui.dropdown {
 
 .ui.search.dropdown {
   min-width: '';
+  margin: 10px;
 }
 
 /* Search Dropdown */
@@ -33470,6 +33475,7 @@ select.ui.dropdown {
   display: block;
   width: 100%;
   min-width: 0em;
+  margin: 10px;
 }
 
 .ui.fluid.dropdown > .dropdown.icon {

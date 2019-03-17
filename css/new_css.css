@@ -271,6 +271,22 @@ input[type=month] {
   -webkit-appearance: listbox;
 }
 
+.datepicker{
+  border-radius: 5px;
+  -webkit-appearance: none;
+  border: 1px solid rgba(34,36,38,.15);
+  content: attr(placeholder) !important;
+  margin: 10px;
+}
+input[type="date"]:before {
+  content: attr(placeholder) !important;
+  color: #aaa;
+  margin-right: 0.5em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+  content: "";
+}
 textarea {
   overflow: auto;
   resize: vertical;
@@ -3414,8 +3430,9 @@ tbody.collapse.show {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
-  width: 100%;
+  align-items: baseline;
+  width: 170%;
+  margin: 0 10px 0 10px;
 }
 .input-group > .form-control,
 .input-group > .custom-select,
@@ -12660,7 +12677,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .wrapper {
   position: relative;
   top: 0;
-  height: 100vh;
+  height: 90%;
 }
 
 .sidebar {
@@ -13004,8 +13021,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
 }
 .main-panel > .content {
-  margin-top: 70px;
-  padding: 30px 15px;
+  margin-top: 10px;
+  padding: 15px 15px;
   min-height: calc(100vh - 123px);
 }
 .main-panel > .footer {
