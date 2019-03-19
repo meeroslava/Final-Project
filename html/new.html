@@ -23,13 +23,112 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="semantic/dist/semantic.min.js"></script>
+
+    <!--summernote rich text editor-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
+        <div class="sidebar" data-color="purple" data-background-color="white">
 
+            <div class="logo">
+                <a href="" class="simple-text logo-normal">
+                    One Hour Translation
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item  ">
+                        <a class="nav-link" href="../profile.html">
+                            <i class="material-icons">person</i>
+                            <p>Profile</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="add.html">
+                            <i class="material-icons">add</i>
+                            <p>Add Event</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="html/search.html">
+                            <i class="material-icons">search</i>
+                            <p>Search Event</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../report.html">
+                            <i class="material-icons">dashboard</i>
+                            <p>Reports</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./settings.html">
+                            <i class="material-icons">settings</i>
+                            <p>Setting</p>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+
+        </div>
+        <div class="main-panel">
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-text card-header-primary">
+                                        <div class="card-text">
+                                            <h4 class="card-title">Create event</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="subject">Subject</label>
+                                                <input type="text" class="form-control col-md-10" id="subject"
+                                                    placeholder="Enter subject">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Description</label>
+                                                <div id="summernote"></div>
+                                            </div>
+                                            <div class="form-check">
+                                                <div class="form-group">
+                                                    <label for="jira">Jira ticket</label>
+                                                    <input type="text" class="form-control col-md-10" id="jira"
+                                                        placeholder="Enter ticket URL">
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
+
     <footer class="footer">
         <div class="container-fluid">
             <nav class="float-left">
@@ -66,7 +165,14 @@
         </div>
     </footer>
     <div class="fixed-plugin">
-
+        <!-- rich text-->
+        <script>
+            $('#summernote').summernote({
+                placeholder: 'Describe here',
+                tabsize: 2,
+                height: 100
+            });
+        </script>
         <!--dropdown-->
         <script>
             $('.ui.dropdown')
