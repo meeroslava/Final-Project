@@ -16,9 +16,8 @@
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
-    <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
 
-    <link href="../css/new_css.css" rel="stylesheet" />
+    <link href="../css/new.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -91,7 +90,7 @@
                     <div class="col-md-12">
                         <div class="card card-plain">
                             <div class="col-md-12">
-                                <div class="card">
+                                <div>
                                     <div class="card-header card-header-text card-header-primary">
                                         <div class="card-text">
                                             <h4 class="card-title">Create event</h4>
@@ -105,14 +104,25 @@
                                                     placeholder="Enter subject">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Description</label>
+                                                <label for="description">Description</label>
                                                 <div id="summernote"></div>
                                             </div>
-                                            <div class="form-check">
-                                                <div class="form-group">
-                                                    <label for="jira">Jira ticket</label>
-                                                    <input type="text" class="form-control col-md-10" id="jira"
-                                                        placeholder="Enter ticket URL">
+
+                                            <div class="col-sm-10">
+                                                <div class="row">
+
+                                                    <div class="form-group col-md-4" style="padding-left: 0;">
+                                                        <label for="jira">Jira ticket:</label>
+                                                        <input type="text" class="form-control" id="jira"
+                                                            placeholder="Enter ticket URL">
+                                                    </div>
+
+
+                                                    <div class="form-group col-md-2" style="padding-left: 0;">
+                                                        <label for="related">Related issue:</label>
+                                                        <input type="text" class="form-control" id="related"
+                                                            placeholder="Enter issue ID">
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -129,41 +139,41 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container-fluid">
-            <nav class="float-left">
+    < <footer class="footer">
+            <div class="container-fluid">
+              <nav class="float-left">
                 <ul>
-                    <li>
-                        <a href="https://www.creative-tim.com">
-                            Creative Tim
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://creative-tim.com/presentation">
-                            About Us
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://blog.creative-tim.com">
-                            Blog
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.creative-tim.com/license">
-                            Licenses
-                        </a>
-                    </li>
+                  <li>
+                    <a href="https://www.creative-tim.com">
+                      Creative Tim
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://creative-tim.com/presentation">
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://blog.creative-tim.com">
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.creative-tim.com/license">
+                      Licenses
+                    </a>
+                  </li>
                 </ul>
-            </nav>
-            <div class="copyright float-right">
+              </nav>
+              <div class="copyright float-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                  document.write(new Date().getFullYear())
                 </script>, made with <i class="material-icons">favorite</i> by
                 <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+              </div>
             </div>
-        </div>
-    </footer>
+          </footer>
     <div class="fixed-plugin">
         <!-- rich text-->
         <script>

@@ -2579,7 +2579,7 @@ select.form-control-lg:not([size]):not([multiple]),
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
   .form-inline .form-group {
     display: flex;
