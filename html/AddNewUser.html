@@ -87,7 +87,7 @@
 
                 </br></br>
 
-                <form action="/form.php">
+                <form method="post" action="adduser.php">
                     <div >
                         <label for="Name"><strong>Name</strong></label>
                         <input name="Name" id="Name" required="" type="text" placeholder="Enter Name">
@@ -102,7 +102,8 @@
                         <input name="User" id="User" required="" type="text" placeholder="User">
 
 
-                        <button type="submit">Send</button>
+                        <button type="submit">Add</button>
+                        <button type="submit">Editing</button>
                     </div>
                 </form>
                 </br>
@@ -139,7 +140,14 @@
                                     1
                                 </td>
                                 <td>
-                                    Yosi abc
+                                    <p id="demo">Avi</p>
+
+                                    <script>
+                                        document.getElementById("demo").onclick = function() {myFunction()};
+                                        function myFunction() {
+                                            document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
+                                        }
+                                    </script>
                                 </td>
                                 <td>
                                     Yosiabc@gmail.com
@@ -164,7 +172,15 @@
                                     2
                                 </td>
                                 <td>
-                                    Minerva Hooper
+                                    <p id="demo1">Yosi</p>
+
+                                    <script>
+                                        document.getElementById("demo1").onclick = function() {myFunction1()};
+
+                                        function myFunction1() {
+                                            document.getElementById("demo1").innerHTML = "YOU CLICKED ME!111";
+                                        }
+                                    </script>
                                 </td>
                                 <td>
                                     MinervaHooper@gmail.com
@@ -184,7 +200,15 @@
                                     3
                                 </td>
                                 <td>
-                                    Sage Rodriguez
+                                    <p id="demo2">Tom</p>
+
+                                    <script>
+                                        document.getElementById("demo2").onclick = function() {myFunction2()};
+
+                                        function myFunction2() {
+                                            document.getElementById("demo2").innerHTML = "YOU CLICKED ME!222";
+                                        }
+                                    </script>
                                 </td>
                                 <td>
                                     SageRodriguez@gmail.com
@@ -204,7 +228,15 @@
                                     4
                                 </td>
                                 <td>
-                                    Philip Chaney
+                                    <p id="demo3">Serggey</p>
+
+                                    <script>
+                                        document.getElementById("demo3").onclick = function() {myFunction3()};
+
+                                        function myFunction3() {
+                                            document.getElementById("demo3").innerHTML = "YOU CLICKED ME!333";
+                                        }
+                                    </script>
                                 </td>
                                 <td>
                                     PhilipChaney@gmail.com
@@ -221,7 +253,15 @@
                                     5
                                 </td>
                                 <td>
-                                    Doris Greene
+                                    <p id="demo4">Bob</p>
+
+                                    <script>
+                                        document.getElementById("demo4").onclick = function() {myFunction4()};
+
+                                        function myFunction4() {
+                                            document.getElementById("demo4").innerHTML = "YOU CLICKED ME!444";
+                                        }
+                                    </script>
                                 </td>
                                 <td>
                                     Malawi
@@ -238,7 +278,15 @@
                                     6
                                 </td>
                                 <td>
-                                    Mason Porter
+                                    <p id="demo5">Boby</p>
+
+                                    <script>
+                                        document.getElementById("demo5").onclick = function() {myFunction5()};
+
+                                        function myFunction5() {
+                                            document.getElementById("demo5").innerHTML = "YOU CLICKED ME!555";
+                                        }
+                                    </script>
                                 </td>
                                 <td>
                                     Chile
