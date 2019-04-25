@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on Wed Apr 24 18:33:56 2019
+-- File generated with SQLiteStudio v3.2.1 on Wed Apr 24 18:50:11 2019
 --
 -- Text encoding used: System
 --
@@ -12,19 +12,6 @@ INSERT INTO Events (eventID, openDate, resolveDate, description, duration, tags,
 INSERT INTO Events (eventID, openDate, resolveDate, description, duration, tags, createdBy, jira, related, subject) VALUES (2, '2019-04-22 17:28:01', NULL, 'test2', NULL, NULL, 'test@oht.com', NULL, NULL, NULL);
 INSERT INTO Events (eventID, openDate, resolveDate, description, duration, tags, createdBy, jira, related, subject) VALUES (3, '2019-04-22 17:28:01', NULL, 'test3', NULL, NULL, 'test@oht.com', NULL, NULL, NULL);
 INSERT INTO Events (eventID, openDate, resolveDate, description, duration, tags, createdBy, jira, related, subject) VALUES (4, '2019-04-22 17:28:01', NULL, 'as', NULL, NULL, 'test@oht.com', '2', 3, '1');
-
--- Table: sqlitestudio_temp_table
-CREATE TABLE sqlitestudio_temp_table(
-  eventID INT,
-  openDate NUM,
-  resolveDate NUM,
-  description TEXT,
-  duration NUM,
-  tags TEXT,
-  createdBy,
-  jira TEXT,
-  related
-);
 
 -- Table: Tags
 CREATE TABLE Tags (name VARCHAR (40) PRIMARY KEY);
