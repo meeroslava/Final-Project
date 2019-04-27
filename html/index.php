@@ -214,8 +214,14 @@ $casesByUser = $db-> getCasesByUser('test@oht.com');
               <tbody>
                   <?php foreach ($casesByUser as $case): ?>
                <tr>
-                   <td></td>
+                   <td><?$case['eventID']?></td>
+                   <td><?$case['subject']?></td>
+                   <td><?$case['assigned']?></td>
+                   <td><?$case['status']?></td>
+                   <td><?$case['openDate']?></td>
+                   <td><?$case['updateDate']?></td>
                </tr>
+               <?php endforeach;  ?>
               </tbody>
             </table>
           </div>
