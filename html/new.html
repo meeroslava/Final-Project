@@ -25,7 +25,7 @@
 
     <!--summernote rich text editor-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+   <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
     <!--<script src="../assets/js/plugins/jquery-3.4.0.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
@@ -106,7 +106,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="description" name="description">Description</label>
-                                                <div id="summernote" id="description" name="description"></div>
+                                                <textarea class="summernote" id="description" name="description"></textarea>
                                             </div>
 
                                             <div class="col-sm-10">
@@ -188,7 +188,7 @@
 
             var dataString = {desc: description};
 
-            alert(dataString); 
+            //alert(dataString); 
             jQuery.ajax({
             type: "POST",
             url: "/addevent.php",
@@ -205,10 +205,10 @@
                 .dropdown();
         </script>
         <!--   Core JS Files   -->
-        <script src="../assets/js/core/jquery.min.js"></script>
+        <!--<script src="../assets/js/core/jquery.min.js"></script>-->
         <script src="../assets/js/core/popper.min.js"></script>
         <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
-        <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!--<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>-->
        
         <!-- Plugin for the momentJs  -->
         <script src="../assets/js/plugins/moment.min.js"></script>
