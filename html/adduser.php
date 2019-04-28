@@ -11,21 +11,21 @@
 
 <body>
 <?php
-$con = mysqli_connect("localhost", "root", "", "test");
-if (mysqli_connect_errno()) {
-    echo "Connection failed: " . mysqli_connect_error();
-}
+$db = new PDO('sqlite:../DB/MainDB.db');
 
-$name=$_REQUEST['Name'];
-$Username=$_REQUEST['UserName'];
-$user=$_REQUEST['User'];
-$email=$_REQUEST['Email'];
+$Name = $_POST['Name'];
+$Email = $_POST['Email'];
+$Role = $_POST['User'];
 
-$sql = "INSERT INTO users  (username,firstname, lastname, email) VALUES ( '" .$name. "','" . $Username ."','".  $User. "','".  $email  ."')";
+/*$Name = "testName";
+$Email = "test@Mail.com";
+$Role = "testRole";*/
 
-mysqli_close($con);
+$query = "INSERT INTO Users VALUES ('$Email', '$Name', '$Role')";
 
-#    echo '<script> top.window.location = "../index.php";</script>';
+$db->exec($query);
+
 ?>
+
 </body>
 </html>
