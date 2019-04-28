@@ -2,7 +2,7 @@
 $db = new PDO('sqlite:../DB/MainDB.db');
 
 require ('util.php');
-$casesByUser = $db-> getCasesByUser('test@oht.com');
+$casesByUser =getCasesByUser('test@oht.com');
 
 ?>
 
@@ -216,6 +216,7 @@ $casesByUser = $db-> getCasesByUser('test@oht.com');
                <tr>
                    <td></td>
                </tr>
+               <?php endforeach ?>  
               </tbody>
             </table>
           </div>
