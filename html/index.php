@@ -2,7 +2,8 @@
 $db = new PDO('sqlite:../DB/MainDB.db');
 
 require ('util.php');
-$casesByUser =getCasesByUser('test@oht.com');
+$casesByUser =getCasesByUser('Meer@oht.com', $db);
+
 
 ?>
 
@@ -52,7 +53,7 @@ $casesByUser =getCasesByUser('test@oht.com');
           </li>
 
           <li class="nav-item ">
-            <a class="nav-link" href="add.html">
+            <a class="nav-link" href="new.html">
               <i class="material-icons">add</i>
               <p>Add Event</p>
             </a>
@@ -212,16 +213,16 @@ $casesByUser =getCasesByUser('test@oht.com');
                 </th>
               </thead>
               <tbody>
-                  <?php foreach ($casesByUser as $case): ?>
+              <?php foreach ($casesByUser as $key => $case) { ?>
                <tr>
-                   <td><?$case['eventID']?></td>
-                   <td><?$case['subject']?></td>
-                   <td><?$case['assigned']?></td>
-                   <td><?$case['status']?></td>
-                   <td><?$case['openDate']?></td>
-                   <td><?$case['updateDate']?></td>
+                   <td><?php echo $case['eventID']; ?></td>
+                   <td><?php echo $case['subject']; ?></td>
+                   <td><?php echo $case['assigned']; ?></td>
+                   <td><?php echo $case['Status']; ?></td>
+                   <td><?php echo $case['openDate']; ?></td>
+                   <td><?php echo $case['updateDate']; ?></td>
                </tr>
-               <?php endforeach;  ?>
+              <?php } ?>
               </tbody>
             </table>
           </div>

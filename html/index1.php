@@ -1,3 +1,11 @@
+<?php 
+$db = new PDO('sqlite:../DB/MainDB.db');
+
+require ('util.php');
+$casesByUser =getCasesByUser('test@oht.com');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +52,7 @@
           </li>
 
           <li class="nav-item ">
-            <a class="nav-link" href="new.html">
+            <a class="nav-link" href="add.html">
               <i class="material-icons">add</i>
               <p>Add Event</p>
             </a>
@@ -65,7 +73,7 @@
           </li>
 
           <li class="nav-item ">
-            <a class="nav-link" href="./addNewUser.html">
+            <a class="nav-link" href="./settings.html">
               <i class="material-icons">settings</i>
               <p>Setting</p>
             </a>
@@ -204,137 +212,16 @@
                 </th>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    Dakota Rice sdfhgsldfgh jkgsdfhjgasdjlhfg kjgsdjfhgasldfhg jkgasdkhjfgasdjlhfgkjghhjkgasdfg
-                    kjgsdhjfglskg hjg fsdhjgsdfjlh jhgfajshdgf ljgsdahjfglasdhjg
-                  </td>
-                  <td>
-                    Miroslava Dryuchenko
-                  </td>
-                  <td>
-                    Open
-                  </td>
-                  <td>
-                    13/12/18
-                  </td>
-                  <td>
-                    14/12/18
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    2
-                  </td>
-                  <td>
-                    Dakota Rice sdfhgsldfgh jkgsdfhjgasdjlhfg kjgsdjfhgasldfhg jkgasdkhjfgasdjlhfgkjghhjkgasdfg
-                    kjgsdhjfglskg hjg fsdhjgsdfjlh jhgfajshdgf ljgsdahjfglasdhjg
-                  </td>
-                  <td>
-                    Miroslava Dryuchenko
-                  </td>
-                  <td>
-                    Open
-                  </td>
-                  <td>
-                    13/12/18
-                  </td>
-                  <td>
-                    14/12/18
-                  </td>
-                </tr>
-                </tr>
-                <tr>
-                  <td>
-                    3
-                  </td>
-                  <td>
-                    Dakota Rice sdfhgsldfgh jkgsdfhjgasdjlhfg kjgsdjfhgasldfhg jkgasdkhjfgasdjlhfgkjghhjkgasdfg
-                    kjgsdhjfglskg hjg fsdhjgsdfjlh jhgfajshdgf ljgsdahjfglasdhjg
-                  </td>
-                  <td>
-                    Miroslava Dryuchenko
-                  </td>
-                  <td>
-                    Open
-                  </td>
-                  <td>
-                    13/12/18
-                  </td>
-                  <td>
-                    14/12/18
-                  </td>
-                </tr>
-                </tr>
-                <tr>
-                  <td>
-                    4
-                  </td>
-                  <td>
-                    Dakota Rice sdfhgsldfgh jkgsdfhjgasdjlhfg kjgsdjfhgasldfhg jkgasdkhjfgasdjlhfgkjghhjkgasdfg
-                    kjgsdhjfglskg hjg fsdhjgsdfjlh jhgfajshdgf ljgsdahjfglasdhjg
-                  </td>
-                  <td>
-                    Miroslava Dryuchenko
-                  </td>
-                  <td>
-                    Open
-                  </td>
-                  <td>
-                    13/12/18
-                  </td>
-                  <td>
-                    14/12/18
-                  </td>
-                </tr>
-                </tr>
-                <tr>
-                  <td>
-                    5
-                  </td>
-                  <td>
-                    Dakota Rice sdfhgsldfgh jkgsdfhjgasdjlhfg kjgsdjfhgasldfhg jkgasdkhjfgasdjlhfgkjghhjkgasdfg
-                    kjgsdhjfglskg hjg fsdhjgsdfjlh jhgfajshdgf ljgsdahjfglasdhjg
-                  </td>
-                  <td>
-                    Miroslava Dryuchenko
-                  </td>
-                  <td>
-                    Open
-                  </td>
-                  <td>
-                    13/12/18
-                  </td>
-                  <td>
-                    14/12/18
-                  </td>
-                </tr>
-                </tr>
-                <tr>
-                  <td>
-                    6
-                  </td>
-                  <td>
-                    Dakota Rice sdfhgsldfgh jkgsdfhjgasdjlhfg kjgsdjfhgasldfhg jkgasdkhjfgasdjlhfgkjghhjkgasdfg
-                    kjgsdhjfglskg hjg fsdhjgsdfjlh jhgfajshdgf ljgsdahjfglasdhjg
-                  </td>
-                  <td>
-                    Miroslava Dryuchenko
-                  </td>
-                  <td>
-                    Open
-                  </td>
-                  <td>
-                    13/12/18
-                  </td>
-                  <td>
-                    14/12/18
-                  </td>
-                </tr>
-                </tr>
+                  <?php foreach ($casesByUser as $case): ?>
+               <tr>
+                   <td><?$case['eventID']?></td>
+                   <td><?$case['subject']?></td>
+                   <td><?$case['assigned']?></td>
+                   <td><?$case['status']?></td>
+                   <td><?$case['openDate']?></td>
+                   <td><?$case['updateDate']?></td>
+               </tr>
+               <?php endforeach;  ?>
               </tbody>
             </table>
           </div>
