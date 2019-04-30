@@ -1,3 +1,8 @@
+<?php 
+require './util/session.php';
+restrictAccess();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,59 +36,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+    <script src="https://unpkg.com/tooltip.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-color="purple" data-background-color="white">
+        <? include './templates/nav.php' ?>
 
-            <div class="logo">
-                <a href="" class="simple-text logo-normal">
-                    One Hour Translation
-                </a>
-            </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li class="nav-item  ">
-                        <a class="nav-link" href="../profile.html">
-                            <i class="material-icons">person</i>
-                            <p>Profile</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item ">
-                        <a class="nav-link" href="add.html">
-                            <i class="material-icons">add</i>
-                            <p>Add Event</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item ">
-                        <a class="nav-link" href="html/search.html">
-                            <i class="material-icons">search</i>
-                            <p>Search Event</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item ">
-                        <a class="nav-link" href="../report.html">
-                            <i class="material-icons">dashboard</i>
-                            <p>Reports</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./settings.html">
-                            <i class="material-icons">settings</i>
-                            <p>Setting</p>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </div>
-
-        </div>
         <div class="main-panel">
 
             <div class="content">

@@ -1,3 +1,11 @@
+<?php 
+    if(isset($_POST['email'])) {
+        session_start();
+        $_SESSION['email'] = $_POST['email'];
+        header("Location: ./index.php");
+        die();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,16 +34,12 @@
        <h2>Welcome</h2>
    </div>
 
-    <form>
+    <form action="./login.php" method="POST">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email">
         </div>
 
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
         <div id="button-login">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
