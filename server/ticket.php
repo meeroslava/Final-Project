@@ -2,6 +2,11 @@
 require './util/session.php';
 restrictAccess();
 
+if(!isset($_GET['eventId'])) {
+    header("Location: ./index.php");
+    die();
+}
+
 function getUpdates($eventId) {
     $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
 
@@ -63,6 +68,8 @@ function getEvent($eventId){
 }
 
 $event = getEvent($_GET['eventId']);
+
+$isEventResolved = $event['resolvedBy'];
 $author = getUser($event['createdBy']);
 
 $updates = getUpdates($_GET['eventId']);
@@ -118,10 +125,23 @@ function submitForm() {
         subject,
         description,
         eventId
-    })})
+    })}).then(() => {
+        window.location.reload();
+    })
     closeDialog();
 }
 
+function resolve() {
+    if(confirm('Are you sure you want to resolve this case? this action can not be undone.')) {
+        const eventId = location.search.match(/eventId=([0-9]+)/)[1];
+
+        fetch('./resolveCase.php', { method: 'POST', body: JSON.stringify({
+            eventId
+        })}).then(() => {
+            window.location.reload();
+        });
+    }
+}
  </script>
 </head>
 <body>
@@ -130,7 +150,7 @@ function submitForm() {
     <? include './templates/nav.php' ?>
 
     <div class="main-panel">
-        <form class="form-inline ml-auto">
+        <form class="form-inline ml-auto" style="padding: 20px">
             <div class="form-group no-border">
                 <input type="text" class="form-control" placeholder="Search">
             </div>
@@ -147,17 +167,30 @@ function submitForm() {
                         <p class="category">Created By: <?= $author['name'] ?></p>
                         <p class="category">Date: <?= $event['openDate'] ?></p>
                         <p class="category">Description: <?= $event['description'] ?></p>
+                        <p class="<?= $isEventResolved? 'event-resolved': 'event-unresolved' ?>">Status: <?= $isEventResolved ? 'Closed' : 'Open' ?> <p>
                     </div>
+                 
+                    <?php if(!$isEventResolved) : ?>
+                        <div class="actions" style="    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;"> 
+                            <button onClick="resolve()" style="margin-right: 10px;">Resolve</button>
+                            <button onClick="openDialog()">Add an Update </button>
+                        </div> 
+                    <?php endif; ?>
+
                 </div>
             </div>
 
-            <button onClick="openDialog()">Add an Update </button>
             <?php foreach($updates as $key => $update): ?>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Update <?= $key ?></h4>
-                        <p class="category"><?= $update['subject']?></p>
+                        <h4 class="card-title"><?= $update['subject']?></h4>
+                        <p class="category">
+                            Update #<strong><?= $key ?></strong>, created by <strong><?= $update['user']  ?></strong> on <strong><?= $update['updateDate']  ?></strong>
+                        </p>
                     </div>
                     <div class="card-body"><?= $update['details']?></div>
                 </div>

@@ -9,7 +9,7 @@ $user = $_SESSION['email'];
 $details = $data['description'];
 $subject= $data['subject'];
 
-$query = "INSERT INTO Updates (updateDate, eventId, user, details, subject) VALUES ('$updateDate', '$eventId', '$eventId', '$details', '$subject')";
+$query = "INSERT INTO Updates (updateDate, eventId, user, details, subject) VALUES ('$updateDate', '$eventId', '$user', '$details', '$subject')";
 $db->exec($query);
 
 ?>

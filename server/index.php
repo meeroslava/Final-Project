@@ -2,6 +2,20 @@
 require './util/session.php';
 restrictAccess();
 
+
+function getEvents(){
+    $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
+    $query = "Select * from events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) updates on  events.eventID = updates.updateEventId";
+    $pdoStatement = $db->query($query);
+
+if(!$pdoStatement) {
+    return [];
+}
+
+return $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$events = getEvents();
 ?>
 
 <!DOCTYPE html>
@@ -60,113 +74,30 @@ restrictAccess();
                     </th>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            Error 503
-                        </td>
-                        <td>
-                            Yosi abc
-                        </td>
-                        <td>
-                            Open
-                        </td>
-                        <td>
-                            12/12/2018
-                        </td>
-                        <td>
-                            13/12/2018
-                        </td>
 
-                    </tr>
+                    <?php foreach($events as $key => $event): ?>
                     <tr>
                         <td>
-                            2
+                            <?= $key ?>
                         </td>
                         <td>
-                            Minerva Hooper
+                            <a href="<?= "./ticket.php?eventId=".$event['eventID'] ?>"><?= $event['subject'] ?></a>
                         </td>
                         <td>
-                            Curaçao
+                        <?= $event['assigned'] ?>
                         </td>
                         <td>
-                            Sinaai-Waas
+                        <?= $event['resolveDate'] ? 'Close' : 'Open' ?>
                         </td>
                         <td>
-                            $23,789
+                        <?= $event['openDate'] ?>
+                        </td>
+                        <td>
+                        <?= $event['updateDate'] ?>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            Sage Rodriguez
-                        </td>
-                        <td>
-                            Netherlands
-                        </td>
-                        <td>
-                            Baileux
-                        </td>
-                        <td>
-                            $56,142
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            Philip Chaney
-                        </td>
-                        <td>
-                            Korea, South
-                        </td>
-                        <td>
-                            Overland Park
-                        </td>
-                        <td>
-                            $38,735
-                        </td>
-                    </tr>
-                    <tr>
+                    <?php endforeach; ?>
 
-                        <td>
-                            5
-                        </td>
-                        <td>
-                            Doris Greene
-                        </td>
-                        <td>
-                            Malawi
-                        </td>
-                        <td>
-                            Feldkirchen in Kärnten
-                        </td>
-                        <td>
-                            $63,542
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            6
-                        </td>
-                        <td>
-                            Mason Porter
-                        </td>
-                        <td>
-                            Chile
-                        </td>
-                        <td>
-                            Gloucester
-                        </td>
-                        <td>
-                            $78,615
-                        </td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
