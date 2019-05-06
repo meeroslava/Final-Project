@@ -1,31 +1,16 @@
 <?php
 
-?>
+$db = new PDO('sqlite:../DB/MainDB.db');
 
-<!DOCTYPE html>
-<html>
+$name = $_POST['Name'];
+$email = $_POST['Email'];
+$UserName = $_POST['UserName'];
+$Role = $_POST['User'];
 
-<head>
+$date = date("Y-m-d H:i:s");
+$query = "INSERT INTO Users VALUES ('$email', '$name', '$Role')";
+$db->exec($query);
 
-</head>
-
-<body>
-<?php
-$con = mysqli_connect("localhost", "root", "", "test");
-if (mysqli_connect_errno()) {
-    echo "Connection failed: " . mysqli_connect_error();
-}
-
-$name=$_REQUEST['Name'];
-$Username=$_REQUEST['UserName'];
-$user=$_REQUEST['User'];
-$email=$_REQUEST['Email'];
-
-$sql = "INSERT INTO users  (username,firstname, lastname, email) VALUES ( '" .$name. "','" . $Username ."','".  $User. "','".  $email  ."')";
-
-mysqli_close($con);
-
-#    echo '<script> top.window.location = "../index.php";</script>';
 ?>
 </body>
 </html>
