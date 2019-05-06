@@ -5,7 +5,8 @@ restrictAccess();
 
 function getEvents(){
     $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
-    $query = "Select * from events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) updates on  events.eventID = updates.updateEventId";
+    $query = "Select * from events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) updates on  events.eventID = updates.updateEventId ORDER BY updateDate DESC, events.openDate DESC
+";
     $pdoStatement = $db->query($query);
 
 if(!$pdoStatement) {
@@ -87,7 +88,7 @@ $events = getEvents();
                         <?= $event['assigned'] ?>
                         </td>
                         <td>
-                        <?= $event['resolveDate'] ? 'Close' : 'Open' ?>
+                        <?= $event['status']?>
                         </td>
                         <td>
                         <?= $event['openDate'] ?>

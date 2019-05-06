@@ -2,6 +2,31 @@
 require './util/session.php';
 restrictAccess();
 
+if(!isset($_GET['eventId'])) {
+    header("Location: ./index.php");
+    die();
+}
+
+function getEvent($eventId){
+    $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
+    // $subject = $_POST['subject'];
+    // $jira = $_POST['jira'];
+    // $related = $_POST['related'];
+    // $description = $_POST['description'];
+    // $createdBy= 'test@oht.com';
+    // $date = date("Y-m-d H:i:s");
+
+    $query = "select * from Events where eventId = $eventId";
+    $pdoStatement = $db->query($query);
+
+    if(!$pdoStatement) {
+        return [];
+    }
+
+    return $pdoStatement->fetchAll()[0];
+}
+
+$event = getEvent($_GET['eventId']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,12 +72,15 @@ restrictAccess();
                 <div class="container-fluid">
                     <div class="col-md-12">
                         <div class="card card-plain">
-                            <form method="POST" action="./addevent.php" class="col-md-12">
-                                <textarea name="description" style="display:none" id="hiddenArea"></textarea>
+                            <form method="POST" action="./updateEvent.php" class="col-md-12">
+                                <input name="eventId" type="hidden" value="<?= $_GET['eventId'] ?>">
+                                <textarea name="description" style="display:none" id="hiddenArea">
+                                    <?= $event['description'] ?>
+                                </textarea>
                                 <div>
                                     <div class="card-header card-header-text card-header-primary">
                                         <div class="card-text">
-                                            <h4 class="card-title">Create event</h4>
+                                            <h4 class="card-title">Update an event</h4>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -61,6 +89,7 @@ restrictAccess();
                                                 <label for="subject">Subject</label>
                                                 <input type="text" name="subject" class="form-control col-md-10" id="subject"
                                                        required="true"
+                                                       value="<?= $event['subject'] ?>"
                                                     placeholder="Enter subject">
                                             </div>
                                             <div class="form-group">
@@ -71,12 +100,12 @@ restrictAccess();
                                             <div style="margin: 0;padding: 0;">
                                                 <div class="col-md-2 form-group" style="padding-left: 0; display: inline-block">
                                                     <label for="cause">What cause this issue?</label>
-                                                    <input name="cause" class="form-control" />
+                                                    <input name="cause" class="form-control" value="<?= $event['cause'] ?>" />
                                                 </div>
 
                                                 <div class="col-md-2 form-group" style="display: inline-block;padding-left: 0">
                                                     <label for="cause-date">The time we detected the cause:</label>
-                                                    <input type="date" name="cause-date" class="form-control" />
+                                                    <input type="date" name="cause-date" class="form-control" value="<?= $event['cause_date'] ?>"/>
                                                 </div>
 
                                             </div>
@@ -86,6 +115,7 @@ restrictAccess();
                                                     <div class="form-group col-md-4" style="padding-left: 0;">
                                                         <label for="jira">Jira ticket:</label>
                                                         <input type="text" name="jira" class="form-control" id="jira"
+                                                               value="<?= $event['jira'] ?>"
                                                             placeholder="Enter ticket URL">
                                                     </div>
 
@@ -93,7 +123,8 @@ restrictAccess();
                                                     <div class="form-group col-md-2" style="padding-left: 0;">
                                                         <label for="related">Related issue:</label>
                                                         <input type="text" name="related" class="form-control" id="related"
-                                                            placeholder="Enter issue ID">
+                                                               value="<?= $event['related'] ?>"
+                                                               placeholder="Enter issue ID">
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,6 +191,8 @@ restrictAccess();
                 var value = quill.container.firstChild.innerHTML;
                 $("textarea").val(value);
             })
+
+            quill.pasteHTML("<?= $event['description'] ?>")
 
         </script>
 

@@ -1,5 +1,18 @@
-<?php 
-    if(isset($_POST['email'])) {
+<?php
+    function isUserExists($email){
+        $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
+        $query = "select * from Users where email='$email'";
+        $pdoStatement = $db->query($query);
+
+        if(!$pdoStatement) {
+            return [];
+        }
+
+        $users = $pdoStatement->fetchAll();
+        return array_key_exists(0, $users) ? $users[0]: null;
+    }
+
+    if(isset($_POST['email']) && isUserExists($_POST['email'])) {
         session_start();
         $_SESSION['email'] = $_POST['email'];
         header("Location: ./index.php");

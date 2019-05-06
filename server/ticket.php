@@ -68,10 +68,7 @@ function getEvent($eventId){
 }
 
 $event = getEvent($_GET['eventId']);
-
-$isEventResolved = $event['resolvedBy'];
 $author = getUser($event['createdBy']);
-
 $updates = getUpdates($_GET['eventId']);
 
 
@@ -104,6 +101,10 @@ $updates = getUpdates($_GET['eventId']);
     </style>
     <script>
 
+        function goToEditPage() {
+            window.location.href = "./edit.php?eventId=<?= $_GET['eventId'] ?>";
+        }
+
 function openDialog(event) {
     document.getElementById('my-dialog').style.visibility = 'visible';
 }
@@ -116,31 +117,43 @@ function stopPropogating(event) {
     event.stopPropagation();
 }
 
-function submitForm() {
-    const subject = document.querySelector('#my-dialog input[name=subject]').value;
-    const description = document.querySelector('#my-dialog textarea[name=description]').value;
-    const eventId = location.search.match(/eventId=([0-9]+)/)[1];
 
+function openStatusDialog(event) {
+    document.getElementById('status-dialog').style.visibility = 'visible';
+}
+
+function closeStatusDialog(event) {
+    document.getElementById('status-dialog').style.visibility = 'hidden';
+}
+
+function sendAnUpdate({subject, description}) {
     fetch('./createUpdate.php', { method: 'POST', body: JSON.stringify({
         subject,
         description,
-        eventId
+        eventId: location.search.match(/eventId=([0-9]+)/)[1]
     })}).then(() => {
         window.location.reload();
-    })
+})
+}
+function submitForm() {
+    const subject = document.querySelector('#my-dialog input[name=subject]').value;
+    const description = document.querySelector('#my-dialog textarea[name=description]').value;
+    sendAnUpdate({subject, description});
+
     closeDialog();
 }
 
-function resolve() {
-    if(confirm('Are you sure you want to resolve this case? this action can not be undone.')) {
-        const eventId = location.search.match(/eventId=([0-9]+)/)[1];
+function sendStatus() {
+    const eventId = location.search.match(/eventId=([0-9]+)/)[1];
+    const status = document.querySelector('#status-dialog select').value;
 
-        fetch('./resolveCase.php', { method: 'POST', body: JSON.stringify({
-            eventId
-        })}).then(() => {
-            window.location.reload();
-        });
-    }
+    fetch('./updateStatus.php', { method: 'POST', body: JSON.stringify({
+        eventId,
+        status
+    })}).then(() => {
+        sendAnUpdate({subject: '<h3 style="color: rgb(255, 165, 0);margin: 0;">Ticket status has been change</h2>', description: "The ticket status changed to " + status})
+});
+
 }
  </script>
 </head>
@@ -163,22 +176,23 @@ function resolve() {
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Subject: <?= $event['subject'] ?></h4>
-                        <p class="category">Created By: <?= $author['name'] ?></p>
-                        <p class="category">Date: <?= $event['openDate'] ?></p>
-                        <p class="category">Description: <?= $event['description'] ?></p>
-                        <p class="<?= $isEventResolved? 'event-resolved': 'event-unresolved' ?>">Status: <?= $isEventResolved ? 'Closed' : 'Open' ?> <p>
+                        <h4 class="card-title"><strong>Subject:</strong> <?= $event['subject'] ?></h4>
+                        <p class="category"><strong>ID:</strong> <?= $event['eventID'] ?></p>
+                        <p class="category"><strong>Created By:</strong> <?= $author['name'] ?></p>
+                        <p class="category"><strong>Date:</strong> <?= $event['openDate'] ?></p>
+                        <p class="category"><strong>Description:</strong> <?= $event['description'] ?></p>
+                        <p class="category"><strong>Status:</strong> <?= strtoupper($event['status']) ?> <p>
+                        <p class="category"><strong>Resolve Date:</strong> <?= $event['status'] == 'resolved' ? $event['resolveDate'] : 'Unresolved' ?> <p>
                     </div>
                  
-                    <?php if(!$isEventResolved) : ?>
                         <div class="actions" style="    display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;"> 
-                            <button onClick="resolve()" style="margin-right: 10px;">Resolve</button>
+                            <button onClick="openStatusDialog()" style="margin-right: 10px;">Change Status</button>
+                            <button onClick="goToEditPage()" style="margin-right: 10px;">Edit the Ticket </button>
                             <button onClick="openDialog()">Add an Update </button>
-                        </div> 
-                    <?php endif; ?>
+                        </div>
 
                 </div>
             </div>
@@ -237,13 +251,30 @@ function resolve() {
 </div>
 
 
-<div id="my-dialog" onClick="closeDialog()">
+<div class="dialog" id="my-dialog" onClick="closeDialog()">
     <main onClick="stopPropogating(event)">
+        <p>Add an update for this event:</p>
         <input name="subject" placeholder="What is the subject?" autocomplete="off"/>
         <textarea name="description" placeholder="Describe the update"></textarea>
-        <button onClick=submitForm()>Submit</button>
+        <button onClick=submitForm()>Create an Update</button>
     </main>
 </div>
+
+<div class="dialog" id="status-dialog" onClick="closeStatusDialog()">
+    <main onClick="stopPropogating(event)">
+        <p>Select a status: </p>
+        <select>
+            <option value="open">Open</option>
+            <option value="progress">In Progress</option>
+            <option value="resolved">Resolved</option>
+            <option value="false-alarm">False Alarm</option>
+            <option value="canceled">Canceled</option>
+        </select>
+        <button onClick=sendStatus()>Update Status</button>
+    </main>
+</div>
+
+
 </body>
 
 </html>
