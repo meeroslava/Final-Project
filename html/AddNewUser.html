@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    One Hour Translation
+    Add New User
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
     name='viewport' />
@@ -80,41 +80,40 @@
    <div class="main-panel">
         <div class="col-md-12">
             <div class="card card-plain">
-                <div class="card-header card-header-primary">
-                    <h2 class="card-title mt-0"> New User</h2>
-                    <p class="card-category"> Here you can add a new User to the system</p>
-                </div>
-
-                </br></br>
+                
+                </br>
+				 <div class="card-header card-header-text card-header-primary">
+                      <div class="card-text">
+                        <h4 class="card-title">New Users</h4>
+                      </div>
+                    </div>
+				</br>				
 
                 <form method="post" action="../server/adduser.php" id="newUser">
                     <div >
-                        <label for="Name"><strong>Name</strong></label>
-                        <input name="Name" id="Name" required="" type="text" placeholder="Enter Name">
-
-                        <label for="Email"><strong>Email</strong></label>
+					
+					    <label for="Email"><strong>Email</strong></label>
                         <input name="Email" id="Email" required="" type="email" placeholder="Enter your Email">
-
-                        <label for="UserName"><strong>UserName</strong></label>
-                        <input name="UserName" id="UserName" required="" type="text" placeholder="Enter your User Name">
-
-                        <label for="User"><strong>User</strong></label>
 						
-						<select name="User" form="newUser" id="User" required="" >
-	   				       	<option value="user">****</option>
+                        <label for="Name"><strong>Name</strong></label>
+                        <input name="Name" id="Name" required="" type="text" placeholder="Enter Name">                        
+
+                        <label for="Role"><strong>Role</strong></label>						
+						<select name="Role" form="newUser" id="Role" required="" >
+	   				       	<option value="">****</option>
                             <option value="user">user</option>
-                            <option value="main">main</option>                          
+                            <option value="Admain">Admin</option>                          
                         </select>
 		
                         <button type="submit">Add</button>
 						
                     </div>
                 </form>
-                </br>
-
-                <div>
+				</br>
+                
+                 <div>
                     <div class="table-responsive">
-                        <iframe src="../server/UserTable.php" height="600" width="800"></iframe>
+                        <iframe src="../server/UserTable.php" height="320" width="800"></iframe>
                     </div>
                 </div>
 
