@@ -1,6 +1,6 @@
 <?php
 session_start();
-$db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
+$db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
 $data = json_decode(file_get_contents('php://input'), true);
 
 $updateDate = date("F j, Y, g:i a"); 

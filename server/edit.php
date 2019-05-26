@@ -8,7 +8,7 @@ if(!isset($_GET['eventId'])) {
 }
 
 function getEvent($eventId){
-    $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
+    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
     // $subject = $_POST['subject'];
     // $jira = $_POST['jira'];
     // $related = $_POST['related'];
@@ -25,7 +25,20 @@ function getEvent($eventId){
 
     return $pdoStatement->fetchAll()[0];
 }
+function getAllUsers(){
+    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $query = "select * from Users";
+    $pdoStatement = $db->query($query);
 
+    if(!$pdoStatement) {
+        return [];
+    }
+
+    return $pdoStatement->fetchAll();
+  
+}
+
+$users = getAllUsers();
 $event = getEvent($_GET['eventId']);
 ?>
 <!DOCTYPE html>
@@ -84,7 +97,6 @@ $event = getEvent($_GET['eventId']);
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <form action="./addevent.php" method="post">
                                             <div class="form-group">
                                                 <label for="subject">Subject</label>
                                                 <input type="text" name="subject" class="form-control col-md-10" id="subject"
@@ -92,6 +104,17 @@ $event = getEvent($_GET['eventId']);
                                                        value="<?= $event['subject'] ?>"
                                                     placeholder="Enter subject">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="assigned">Assigned To:</label>
+                                                <select name="assigned" class="form-control">
+                                                <option>Unassigned</option>
+                                                <?php foreach($users as $user): ?>
+                                                    <option <?=$event['assigned'] == $user['email'] ? 'selected' : '' ?>><?= $user['email'] ?></option>
+                                                <?php endforeach; ?>
+                                                </select>
+                
+                                            </div>
+
                                             <div class="form-group">
                                                 <label for="description" name="description">Description</label>
                                                 <div id="editor"></div>
@@ -130,8 +153,6 @@ $event = getEvent($_GET['eventId']);
                                             </div>
 
                                             <button type="submit" class="btn btn-primary" onClick="submitForm()">Submit</button>
-                                        </form>
-
                                     </div>
                                 </div>
                             </form>

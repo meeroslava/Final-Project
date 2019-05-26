@@ -2,6 +2,20 @@
 require './util/session.php';
 restrictAccess();
 
+function getAllUsers(){
+    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $query = "select * from Users";
+    $pdoStatement = $db->query($query);
+
+    if(!$pdoStatement) {
+        return [];
+    }
+
+    return $pdoStatement->fetchAll();
+  
+}
+
+$users = getAllUsers()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,6 +77,18 @@ restrictAccess();
                                                        required="true"
                                                     placeholder="Enter subject">
                                             </div>
+
+                                            <div class="form-group">
+                                                <label for="assigned">Assigned To:</label>
+                                                <select name="assigned" class="form-control">
+                                                <option selected>Unassigned</option>
+                                                <?php foreach($users as $user): ?>
+                                                    <option><?= $user['email'] ?></option>
+                                                <?php endforeach; ?>
+                                                </select>
+                
+                                            </div>
+
                                             <div class="form-group">
                                                 <label for="description" name="description">Description</label>
                                                 <div id="editor"></div>

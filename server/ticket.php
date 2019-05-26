@@ -8,9 +8,9 @@ if(!isset($_GET['eventId'])) {
 }
 
 function getUpdates($eventId) {
-    $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
+    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
 
-    // $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'admin', '123456');
+    // $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'admin', '123456');
     // $subject = $_POST['subject'];
     // $jira = $_POST['jira'];
     // $related = $_POST['related'];
@@ -29,7 +29,7 @@ function getUpdates($eventId) {
 }
 
 function getUser($email){
-        $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
+        $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
     // $subject = $_POST['subject'];
     // $jira = $_POST['jira'];
     // $related = $_POST['related'];
@@ -49,7 +49,7 @@ function getUser($email){
 
 
 function getEvent($eventId){
-    $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
+    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
     // $subject = $_POST['subject'];
     // $jira = $_POST['jira'];
     // $related = $_POST['related'];
@@ -182,7 +182,9 @@ function sendStatus() {
                         <p class="category"><strong>Date:</strong> <?= $event['openDate'] ?></p>
                         <p class="category"><strong>Description:</strong> <?= $event['description'] ?></p>
                         <p class="category"><strong>Status:</strong> <?= strtoupper($event['status']) ?> <p>
+                        <p class="category"><strong>Assigned To:</strong> <?= $event['assigned'] ?></p>
                         <p class="category"><strong>Resolve Date:</strong> <?= $event['status'] == 'resolved' ? $event['resolveDate'] : 'Unresolved' ?> <p>
+                        <p class="category"><strong>Related to another ticker:</strong> <?= strtoupper($event['related']) ?> <p>
                     </div>
                  
                         <div class="actions" style="    display: flex;

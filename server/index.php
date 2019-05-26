@@ -2,20 +2,40 @@
 require './util/session.php';
 restrictAccess();
 
-
-function getEvents(){
-    $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
-    $query = "Select * from events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) updates on  events.eventID = updates.updateEventId ORDER BY updateDate DESC, events.openDate DESC
-";
+function getAllUsers(){
+    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $query = "select * from Users";
     $pdoStatement = $db->query($query);
 
-if(!$pdoStatement) {
-    return [];
+    if(!$pdoStatement) {
+        return [];
+    }
+
+    return $pdoStatement->fetchAll();
+  
 }
+
+function getEvents(){
+    $createdBy = $_GET['created-by'] ? '%'.$_GET['created-by'].'%' : '%';
+    $created = $_GET['created'];
+    $closed = $_GET['closed'];
+    $assigned = $_GET['assigned'] ? '%'.$_GET['assigned'].'%' : '%';
+    $status = $_GET['status'] ? '%'.$_GET['status'].'%' : '%';
+
+
+    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $query = "Select * from Events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) Updates on Events.eventID = Updates.updateEventId where Events.status like '$status' and IFNULL(Events.assigned, '') like '$assigned' and Events.createdBy like '$createdBy' and Events.openDate >= '$created' and IFNULL(Events.resolveDate, '2050-01-01') >= '$closed' ORDER BY updateDate DESC, Events.openDate DESC";
+
+    $pdoStatement = $db->query($query);
+
+    if(!$pdoStatement) {
+        return [];
+    }
 
 return $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+$users = getAllUsers();
 $events = getEvents();
 ?>
 
@@ -38,12 +58,28 @@ $events = getEvents();
 
             <!-- CSS Files -->
             <link href="../css/main.css?v=2.1.1" rel="stylesheet" />
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style>
+.inputs * {
+    margin-right: 15px;
+}
 
+.inputs {
+    display: flex;
+    align-items: center;
+}
+
+.filters h4 {
+    margin-top: 20px;
+}
+
+</style>
 </head>
 <body>
 
 <div class="wrapper ">
     <? include './templates/nav.php' ?>
+    
     <div class="main-panel">
         <div class="col-md-12">
             <div class="card card-plain">
@@ -51,6 +87,59 @@ $events = getEvents();
                     <h4 class="card-title mt-0"> Table on Plain Background</h4>
                     <p class="card-category"> Here is a subtitle for this table</p>
                 </div>
+
+                <form class="filters">
+                    <h4>Filter Results:</h2>
+                      <!-- created by-->
+                    <div class="inputs"> 
+        
+                  <!--Assigned to-->
+                  <div class="form-group"> 
+                    <label for="created-by">Created By</label>
+                    <select name="created-by" name="created-by" class="form-control created-by">
+                    <option value="">-</option>
+                    <?php foreach($users as $user): ?>
+                        <option <?= $user['email'] == $_GET['created-by'] ? 'selected': ''?>  value="<?= $user['email'] ?>"><?= $user['email'] ?></option>
+                    <?php endforeach;?>
+                  </select>
+                  </div>
+
+                  <div class="form-group"> 
+                    <label for="assigned">Assigned to</label>
+                    <select name="assigned" name="assigned" class="form-control assigned">
+                    <option value="">-</option>
+                    <?php foreach($users as $user): ?>
+                        <option <?= $user['email'] == $_GET['assigned'] ? 'selected': ''?> value="<?= $user['email'] ?>"><?= $user['email'] ?></option>
+                    <?php endforeach;?>
+                  </select>
+                  </div>
+
+                  <!--created-->
+                  <div class="form-group"> 
+                    <label for="created">Created After</label>
+                    <input type="date" value="<?= empty($_GET['created']) ? "1970-01-01": $_GET['created'] ?>" id="created" class="form-control created" class="datepicker ui search fluid" placeholder="Created at">
+                  </div>
+
+                  <div class="form-group"> 
+                    <label for="closed">Closed After</label>
+                    <input type="date"  value="<?= empty($_GET['closed']) ? "1970-01-01" : $_GET['closed']?>" id="closed" class="form-control closed" class="datepicker ui search fluid" placeholder="Closed at">
+                  </div>
+                
+                  <div class="form-group"> 
+                    <label for="status">Status</label>
+                    <select name="status" name="status" class="form-control status">
+                    <option value="">-</option>
+                    <option value="open" <?= $_GET['status'] === 'open' ? 'selected': '' ?>>Open</option>
+                    <option value="progress" <?= $_GET['status'] === 'progress' ? 'selected': '' ?>>In Progress</option>
+                    <option value="resolved" <?= $_GET['status'] === 'resolved' ? 'selected': '' ?>>Resolved</option>
+                    <option value="false-alarm" <?= $_GET['status'] === 'false-alarm' ? 'selected': '' ?>>False Alarm</option>
+                    <option value="canceled" <?= $_GET['status'] === 'canceled' ? 'selected': '' ?>>Canceled</option>
+                  </select>
+                  </div>
+                  <!--closed-->
+                  <!---search-->
+                    </div> 
+                </form>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -140,7 +229,18 @@ $events = getEvents();
         </footer>
     </div>
 </div>
+<script>
+$('.filters').on('change', function() {
+   const createdBy = $('.created-by').val();
+   const createdAfter = $('.created').val();
+   const closedAfter = $('.closed').val();
+   const assignedTo = $('.assigned').val();
+   const status = $('.status').val();
 
+   window.location.search = `?created-by=${createdBy}&created=${createdAfter}&closed=${closedAfter}&assigned=${assignedTo}&status=${status}`
+});
+
+</script>
 </body>
 
 </html>
