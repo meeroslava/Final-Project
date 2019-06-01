@@ -124,13 +124,11 @@
         function openForm() {
           document.getElementById("myForm").style.display = "block";
         }
-
         function closeForm() {
           document.getElementById("myForm").style.display = "none";
         }
       </script>	
    </head>
-
    <body>                  
        <div class="card-body">
         <table class="table">
@@ -140,8 +138,7 @@
                                     <th>Email</th>
                                     <th>Name</th>
                                     <th>Role</th>	
-                                    <th class="text-left"></th>
-									<th class="td-actions text-left">
+                                    <th class="td-actions text-left">
 									     <button id='editBtn' onclick="openForm()" type="button" rel="tooltip" class="btn btn-success">
                                             <i class="material-icons">edit</i>
                                         </button>
@@ -164,7 +161,11 @@
                          <td  class="editableColumns" name="Role">
                             <?= $key['role'] ?>
                          </td>
-						 										
+					   	<!-- <td class="td-actions text-left">
+                                        <button id='editBtn' type="button" class="editValues" rel="tooltip" class="btn btn-success" >
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                         </td>    --!>						 										
 		                </form>		 
                     </tr> 
                     <?php $index = $index + 1 ?>
@@ -172,5 +173,47 @@
 	        </tbody>
         </table>
        </div>
-   </body>
-  </html> 
+
+<script type="text/javascript"> 
+$('.editValues').click(
+	function () {
+		if ("submit" === $(this).attr("type")) { // 2nd time
+			// update DB
+			alert("updating");			
+		} else { // 1st time
+			// change button
+			var buttonhtml = $(this).html();
+			var buttoninput = $('<i class="material-icons">save</i></button>');
+			buttoninput.val(buttonhtml);
+			$(this).html(buttoninput);
+			// mark button as 'update' mode
+			$(this).attr("type","submit");
+			//$(this).attr("onclick","update()");
+			
+			// change row to text - editable columns
+			$(this).parents('tr').find('td.editableColumns').each(
+				function() {	
+					var name = $(this).attr("name");
+					var html = ($(this).html()).trim();
+					var input = $('<input class="editableColumnsStyle" type="text" name="' + name + '"/>');
+					input.val(html);
+					$(this).html(input);
+				}
+			);
+			
+			// change row to text - input columns
+			$(this).parents('tr').find('td.inputColumns').each(
+				function() {
+					var name = $(this).attr("name");
+					var html = ($(this).html()).trim();
+					var input = $('<input class="inputColumns" name="' + name + '" readonly/>');
+					input.val(html);
+					$(this).html(input);
+				}
+			);
+		}
+	}
+);
+</script>
+</body>
+</html> 
