@@ -26,6 +26,7 @@ function getTicketsPerDay($createdAfter, $status) {
     $now = date('Y-m-d');
     $db = getDB();
 
+    $db->exec("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
     $query = "select count(*) as y, DATE_FORMAT(Events.openDate, \"%m-%d-%Y\") as x from Events where (Events.openDate BETWEEN \"$createdAfter\" AND \"$now\") and status = \"$status\" group by DAY(Events.openDate)";
     $pdoStatement = $db->query($query);
 
@@ -38,9 +39,9 @@ function getTicketsPerDay($createdAfter, $status) {
 
 
 
-$counters = getCountersByStatus($_GET['date'] ? $_GET['date'] :  $last_week_date);
-$openPerDay = getTicketsPerDay($_GET['date'] ? $_GET['date'] : $last_week_date, 'OPEN');
-$resolvedPerDay = getTicketsPerDay($_GET['date'] ? $_GET['date'] : $last_week_date, 'RESOLVED');
+$counters = getCountersByStatus(isset($_GET['date']) ? $_GET['date'] :  $last_week_date);
+$openPerDay = getTicketsPerDay(isset($_GET['date']) ? $_GET['date'] : $last_week_date, 'OPEN');
+$resolvedPerDay = getTicketsPerDay(isset($_GET['date']) ? $_GET['date'] : $last_week_date, 'RESOLVED');
 
 ?>
 <!DOCTYPE html>
@@ -71,7 +72,7 @@ $resolvedPerDay = getTicketsPerDay($_GET['date'] ? $_GET['date'] : $last_week_da
       <body class="">
         <div class="wrapper ">
           
-         <? include './templates/nav.php' ?>
+         <?= include './templates/nav.php' ?>
           <div class="main-panel">
            
             <div class="content">

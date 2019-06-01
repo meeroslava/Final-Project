@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 function getDB() {
-    $host = 'my-mysql';
+    $host = 'localhost';
     $dbName= 'final-project';
     $username ='root';
-    $password = '123456';
+    $password = 'root';
     return new PDO("mysql:host=$host;dbname=$dbName", $username, $password);
 }

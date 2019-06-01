@@ -55,7 +55,7 @@ $users = getAllUsers()
 
 <body>
     <div class="wrapper">
-        <? include './templates/nav.php' ?>
+        <?= include './templates/nav.php' ?>
 
         <div class="main-panel">
 
