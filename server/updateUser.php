@@ -1,6 +1,7 @@
 <?php
-$db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
-//$db = new PDO("mysql:host=127.0.0.1;dbname=demo", 'root', '');
+require './util/database.php';
+$db = getDB();
+    //$db = new PDO("mysql:host=127.0.0.1;dbname=demo", 'root', '');
 
 //alert('Name')
 $email = $_POST['Email'];

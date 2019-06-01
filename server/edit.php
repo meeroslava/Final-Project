@@ -1,5 +1,7 @@
 <?php 
 require './util/session.php';
+require './util/database.php';
+
 restrictAccess();
 
 if(!isset($_GET['eventId'])) {
@@ -8,7 +10,7 @@ if(!isset($_GET['eventId'])) {
 }
 
 function getEvent($eventId){
-    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $db = getDB();
     // $subject = $_POST['subject'];
     // $jira = $_POST['jira'];
     // $related = $_POST['related'];
@@ -26,7 +28,7 @@ function getEvent($eventId){
     return $pdoStatement->fetchAll()[0];
 }
 function getAllUsers(){
-    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $db = getDB();
     $query = "select * from Users";
     $pdoStatement = $db->query($query);
 

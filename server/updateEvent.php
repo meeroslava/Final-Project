@@ -1,9 +1,8 @@
 <?php
 session_start();
+require './util/database.php';
 
-$db = new PDO('sqlite:../DB/MainDB.db');
-
-$db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+$db = getDB();
 $subject = $_POST['subject'];
 $eventId = $_POST['eventId'];
 $jira = $_POST['jira'];

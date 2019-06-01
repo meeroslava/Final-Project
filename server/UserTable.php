@@ -26,8 +26,8 @@
 
     <?php 
                                        //$db = new PDO("mysql:host=127.0.0.1;dbname=demo",'root', '');
-                                       $db = new PDO("mysql:host=127.0.0.1;dbname=final-project", 'root', '123456');
-                                       $query = "Select * from users" ;
+                                       $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+                                       $query = "Select * from Users" ;
                                        $pdoStatement = $db->query($query);
                                        $users = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
     ?>

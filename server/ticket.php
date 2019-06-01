@@ -1,5 +1,7 @@
 <?php 
 require './util/session.php';
+require './util/database.php';
+
 restrictAccess();
 
 if(!isset($_GET['eventId'])) {
@@ -8,7 +10,7 @@ if(!isset($_GET['eventId'])) {
 }
 
 function getUpdates($eventId) {
-    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $db = getDB();
 
     // $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'admin', '123456');
     // $subject = $_POST['subject'];
@@ -29,7 +31,7 @@ function getUpdates($eventId) {
 }
 
 function getUser($email){
-        $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $db = getDB();
     // $subject = $_POST['subject'];
     // $jira = $_POST['jira'];
     // $related = $_POST['related'];
@@ -49,7 +51,7 @@ function getUser($email){
 
 
 function getEvent($eventId){
-    $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+    $db = getDB();
     // $subject = $_POST['subject'];
     // $jira = $_POST['jira'];
     // $related = $_POST['related'];
@@ -163,15 +165,6 @@ function sendStatus() {
     <? include './templates/nav.php' ?>
 
     <div class="main-panel">
-        <form class="form-inline ml-auto" style="padding: 20px">
-            <div class="form-group no-border">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-just-icon btn-round">
-                <i class="material-icons">search</i>
-            </button>
-        </form>
-
         <div class="row">
             <div class="col-md-6">
                 <div class="card">

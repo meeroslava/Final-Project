@@ -21,10 +21,10 @@ function getEvents(){
     $closed = $_GET['closed'];
     $assigned = $_GET['assigned'] ? '%'.$_GET['assigned'].'%' : '%';
     $status = $_GET['status'] ? '%'.$_GET['status'].'%' : '%';
-
+    $search = $_GET['search'] ? '%'.$_GET['search'].'%' : '%';
 
     $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
-    $query = "Select * from Events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) Updates on Events.eventID = Updates.updateEventId where Events.status like '$status' and IFNULL(Events.assigned, '') like '$assigned' and Events.createdBy like '$createdBy' and Events.openDate >= '$created' and IFNULL(Events.resolveDate, '2050-01-01') >= '$closed' ORDER BY updateDate DESC, Events.openDate DESC";
+    $query = "Select * from Events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) Updates on Events.eventID = Updates.updateEventId where Events.status like '$status' and IFNULL(Events.assigned, '') like '$assigned' and Events.createdBy like '$createdBy' and Events.openDate >= '$created' and IFNULL(Events.resolveDate, '2050-01-01') >= '$closed' and (IFNULL(Events.subject, '') like '$search' or IFNULL(Events.description, '') like '$search') ORDER BY updateDate DESC, Events.openDate DESC";
 
     $pdoStatement = $db->query($query);
 
@@ -59,6 +59,7 @@ $events = getEvents();
             <!-- CSS Files -->
             <link href="../css/main.css?v=2.1.1" rel="stylesheet" />
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
 <style>
 .inputs * {
     margin-right: 15px;
@@ -88,7 +89,7 @@ $events = getEvents();
                     <p class="card-category"> Here is a subtitle for this table</p>
                 </div>
 
-                <form class="filters">
+                <div class="filters">
                     <h4>Filter Results:</h2>
                       <!-- created by-->
                     <div class="inputs"> 
@@ -97,7 +98,7 @@ $events = getEvents();
                   <div class="form-group"> 
                     <label for="created-by">Created By</label>
                     <select name="created-by" name="created-by" class="form-control created-by">
-                    <option value="">-</option>
+                    <option value="">*</option>
                     <?php foreach($users as $user): ?>
                         <option <?= $user['email'] == $_GET['created-by'] ? 'selected': ''?>  value="<?= $user['email'] ?>"><?= $user['email'] ?></option>
                     <?php endforeach;?>
@@ -107,7 +108,7 @@ $events = getEvents();
                   <div class="form-group"> 
                     <label for="assigned">Assigned to</label>
                     <select name="assigned" name="assigned" class="form-control assigned">
-                    <option value="">-</option>
+                    <option value="">*</option>
                     <?php foreach($users as $user): ?>
                         <option <?= $user['email'] == $_GET['assigned'] ? 'selected': ''?> value="<?= $user['email'] ?>"><?= $user['email'] ?></option>
                     <?php endforeach;?>
@@ -117,18 +118,18 @@ $events = getEvents();
                   <!--created-->
                   <div class="form-group"> 
                     <label for="created">Created After</label>
-                    <input type="date" value="<?= empty($_GET['created']) ? "1970-01-01": $_GET['created'] ?>" id="created" class="form-control created" class="datepicker ui search fluid" placeholder="Created at">
+                    <input type="date" value="<?= empty($_GET['created']) ? "1970-01-01": $_GET['created'] ?>" id="created" class="form-control created" class="datepicker ui fluid" placeholder="Created at">
                   </div>
 
                   <div class="form-group"> 
                     <label for="closed">Closed After</label>
-                    <input type="date"  value="<?= empty($_GET['closed']) ? "1970-01-01" : $_GET['closed']?>" id="closed" class="form-control closed" class="datepicker ui search fluid" placeholder="Closed at">
+                    <input type="date"  value="<?= empty($_GET['closed']) ? "1970-01-01" : $_GET['closed']?>" id="closed" class="form-control closed" class="datepicker ui fluid" placeholder="Closed at">
                   </div>
                 
                   <div class="form-group"> 
                     <label for="status">Status</label>
                     <select name="status" name="status" class="form-control status">
-                    <option value="">-</option>
+                    <option value="">*</option>
                     <option value="open" <?= $_GET['status'] === 'open' ? 'selected': '' ?>>Open</option>
                     <option value="progress" <?= $_GET['status'] === 'progress' ? 'selected': '' ?>>In Progress</option>
                     <option value="resolved" <?= $_GET['status'] === 'resolved' ? 'selected': '' ?>>Resolved</option>
@@ -136,10 +137,15 @@ $events = getEvents();
                     <option value="canceled" <?= $_GET['status'] === 'canceled' ? 'selected': '' ?>>Canceled</option>
                   </select>
                   </div>
+
+                  <div class="form-group"> 
+                    <label for="search">Search</label>
+                    <input type="text" autocomplete="off"  value="<?= $_GET['search'] ?>" id="search" class="form-control closed search"  placeholder="*">
+                  </div>
                   <!--closed-->
                   <!---search-->
                     </div> 
-                </form>
+</div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -196,49 +202,56 @@ $events = getEvents();
 </div>
 
 
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav class="float-left">
-                    <ul>
-
-                        <li>
-                            <a href="..//about.html">
-                                footer1
-                            </a>
-                        </li>
-                        <li>
-                            <a href="..//about.html">
-                                footer2
-                            </a>
-                        </li>
-                        <li>
-                            <a href="..//about.html">
-                                footer3
-                            </a>
-                        </li>
-                        <li>
-                            <a href="..//about.html">
-                                footer4
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
-
-            </div>
-        </footer>
+<footer class="footer">
+    <div class="container-fluid">
+      <nav class="float-left">
+        <ul>
+          <li>
+            <a href="https://www.creative-tim.com">
+              Creative Tim
+            </a>
+          </li>
+          <li>
+            <a href="https://creative-tim.com/presentation">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="http://blog.creative-tim.com">
+              Blog
+            </a>
+          </li>
+          <li>
+            <a href="https://www.creative-tim.com/license">
+              Licenses
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="copyright float-right">
+        &copy;
+        <script>
+          document.write(new Date().getFullYear())
+        </script>, made with <i class="material-icons">favorite</i> by
+        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+      </div>
+    </div>
+  </footer>
     </div>
 </div>
 <script>
-$('.filters').on('change', function() {
+function send() {
    const createdBy = $('.created-by').val();
    const createdAfter = $('.created').val();
    const closedAfter = $('.closed').val();
    const assignedTo = $('.assigned').val();
    const status = $('.status').val();
+   const search = $('.search').val();
 
-   window.location.search = `?created-by=${createdBy}&created=${createdAfter}&closed=${closedAfter}&assigned=${assignedTo}&status=${status}`
-});
+   window.location.search = `?created-by=${createdBy}&created=${createdAfter}&closed=${closedAfter}&assigned=${assignedTo}&status=${status}&search=${search}`
+}
+
+$('.filters').on('change keyup', _.debounce(send, 500));
 
 </script>
 </body>

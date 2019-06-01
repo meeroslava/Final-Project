@@ -1,6 +1,8 @@
 <?php
+require './util/database.php';
+
     function isUserExists($email){
-        $db = new PDO("mysql:host=my-mysql;dbname=final-project", 'root', '123456');
+        $db = getDB();
         $query = "select * from Users where email='$email'";
         $pdoStatement = $db->query($query);
 
