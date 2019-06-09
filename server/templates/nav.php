@@ -29,7 +29,9 @@
             </a>
           </li>
 
-        <p style="font-size: 14px;padding: 10px;">Logged in as <strong><?= $_SESSION['email'] ?></strong></p>
+        <p class="nav-username" style="font-size: 14px;padding: 10px;">
+        Logged in as 
+        <strong><?= $_SESSION['email'] ?></strong></p>
 
         <li class="nav-item ">
             <a class="nav-link" href="./logout.php">
@@ -48,3 +50,11 @@
 </div>
 
 </div>
+
+<style>
+  .nav-username strong { 
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+</style>

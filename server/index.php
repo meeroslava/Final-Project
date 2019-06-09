@@ -25,7 +25,7 @@ function getEvents(){
     $search = $_GET['search'] ? '%'.$_GET['search'].'%' : '%';
 
     $db = getDB();
-    $query = "Select * from Events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) Updates on Events.eventID = Updates.updateEventId where Events.status like '$status' and IFNULL(Events.assigned, '') like '$assigned' and Events.createdBy like '$createdBy' and Events.openDate >= '$created' and IFNULL(Events.resolveDate, '2050-01-01') >= '$closed' and (IFNULL(Events.subject, '') like '$search' or IFNULL(Events.description, '') like '$search') ORDER BY updateDate DESC, Events.openDate DESC";
+    $query = "Select * from Events left join (select MAX(updateDate) as updateDate, eventId as updateEventId from Updates group by eventId) Updates on Events.eventID = Updates.updateEventId where Events.status like '$status' and IFNULL(Events.assigned, '') like '$assigned' and Events.createdBy like '$createdBy' and Events.openDate >= '$created' and IFNULL(Events.resolveDate, '2050-01-01') >= '$closed' and (IFNULL(Events.subject, '') like '$search' or IFNULL(Events.description, '') like '$search') ORDER BY Events.openDate ASC";
 
     $pdoStatement = $db->query($query);
 
@@ -174,7 +174,7 @@ $events = getEvents();
                     <?php foreach($events as $key => $event): ?>
                     <tr>
                         <td>
-                            <?= $key ?>
+                            <?= $event['eventID'] ?>
                         </td>
                         <td>
                             <a href="<?= "./ticket.php?eventId=".$event['eventID'] ?>"><?= $event['subject'] ?></a>

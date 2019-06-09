@@ -19,6 +19,8 @@ require './util/database.php';
         $_SESSION['email'] = $_POST['email'];
         header("Location: ./index.php");
         die();
+    } else if (isset($_POST['email'])) {
+        $error = "Email does not exist in the database, please contact the administrator.";
     }
 ?>
 <!DOCTYPE html>
@@ -59,6 +61,9 @@ require './util/database.php';
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </form>
+    <? if(!empty($error)): ?>
+        <p style="color: red;"><?= $error ?></p>
+    <? endif; ?>
 </div>
 
 

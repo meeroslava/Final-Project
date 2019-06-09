@@ -176,7 +176,7 @@ function sendStatus() {
                         <p class="category"><font color="#A940B6" ><strong>Description:</strong></font> <?= $event['description'] ?></p>
                         <p class="category"><font color="#A940B6" ><strong>Status:</strong> </font><?= strtoupper($event['status']) ?> <p>
                         <p class="category"><font color="#A940B6" ><strong>Assigned To:</strong></font> <?= $event['assigned'] ?></p>
-                        <p class="category"><font color="#A940B6" ><strong>Resolve Date:</strong> </font><?= $event['status'] == 'resolved' ? $event['resolveDate'] : 'Unresolved' ?> <p>
+                        <p class="category"><font color="#A940B6" ><strong>Resolve Date:</strong> </font><?= empty($event['resolveDate']) ? 'Unresolved' : $event['resolveDate'] ?> <p>
                         <p class="category"><font color="#A940B6" ><strong>Related to another ticker:</strong> </font><?= strtoupper($event['related']) ?> <p>
                     </div>
                  
