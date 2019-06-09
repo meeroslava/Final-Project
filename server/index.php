@@ -86,14 +86,13 @@ $events = getEvents();
         <div class="col-md-12">
             <div class="card card-plain">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title mt-0"> Table on Plain Background</h4>
-                    <p class="card-category"> Here is a subtitle for this table</p>
+                    <h4 class="card-title mt-0"> Search</h4>
                 </div>
 
                 <div class="filters">
-                    <h4>Filter Results:</h2>
+                    <h4>Filter Results:</h4>
                       <!-- created by-->
-                    <div class="inputs"> 
+                    <div class="inputs">
         
                   <!--Assigned to-->
                   <div class="form-group"> 
@@ -204,39 +203,42 @@ $events = getEvents();
 
 
 <footer class="footer">
+
     <div class="container-fluid">
-      <nav class="float-left">
-        <ul>
-          <li>
-            <a href="https://www.creative-tim.com">
-              Creative Tim
-            </a>
-          </li>
-          <li>
-            <a href="https://creative-tim.com/presentation">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="http://blog.creative-tim.com">
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="https://www.creative-tim.com/license">
-              Licenses
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div class="copyright float-right">
-        &copy;
-        <script>
-          document.write(new Date().getFullYear())
-        </script>, made with <i class="material-icons">favorite</i> by
-        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-      </div>
+        <nav class="float-left">
+            <ul>
+                <li>
+                    <a href="https://www.creative-tim.com">
+                        Creative Tim
+                    </a>
+                </li>
+                <li>
+                    <a href="https://creative-tim.com/presentation">
+                        About Us
+                    </a>
+                </li>
+                <li>
+                    <a href="http://blog.creative-tim.com">
+                        Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.creative-tim.com/license">
+                        Licenses
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="copyright float-right">
+            &copy;
+            <script>
+                document.write(new Date().getFullYear())
+            </script>, made with <i class="material-icons">favorite</i> by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+        </div>
     </div>
+
+
   </footer>
     </div>
 </div>

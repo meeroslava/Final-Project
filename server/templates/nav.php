@@ -2,7 +2,7 @@
 
 <div class="logo">
     <a href="./" class="simple-text logo-normal">
-        title for the nav bar
+        One Hour Translation
     </a>
 </div>
 <div class="sidebar-wrapper">
@@ -10,7 +10,7 @@
 
         <li class="nav-item ">
             <a class="nav-link" href="./index.php">
-            <i class="material-icons">add</i>
+            <i class="material-icons">desktop_windows</i>
               <p>View tickets</p>
             </a>
         </li>
@@ -29,13 +29,9 @@
             </a>
           </li>
 
-          <li class="nav-item ">
-            <a class="nav-link" href="./settings.html">
-              <i class="material-icons">settings</i>
-              <p>Manage Users</p>
-            </a>
-          </li>
-          <li class="nav-item ">
+        <p style="font-size: 14px;padding: 10px;">Logged in as <strong><?= $_SESSION['email'] ?></strong></p>
+
+        <li class="nav-item ">
             <a class="nav-link" href="./logout.php">
               <i class="material-icons">settings</i>
               <p>Logout</p>
@@ -43,9 +39,12 @@
           </li>
 
         </ul>
+
+
     </ul>
 
-    <p style="font-size: 14px;padding: 10px;">Logged in as <strong><?= $_SESSION['email'] ?></strong></p>
+
+
 </div>
 
 </div>

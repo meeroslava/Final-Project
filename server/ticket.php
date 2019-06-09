@@ -169,15 +169,15 @@ function sendStatus() {
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title"><strong>Subject:</strong> <?= $event['subject'] ?></h4>
-                        <p class="category"><strong>ID:</strong> <?= $event['eventID'] ?></p>
-                        <p class="category"><strong>Created By:</strong> <?= $author['name'] ?></p>
-                        <p class="category"><strong>Date:</strong> <?= $event['openDate'] ?></p>
-                        <p class="category"><strong>Description:</strong> <?= $event['description'] ?></p>
-                        <p class="category"><strong>Status:</strong> <?= strtoupper($event['status']) ?> <p>
-                        <p class="category"><strong>Assigned To:</strong> <?= $event['assigned'] ?></p>
-                        <p class="category"><strong>Resolve Date:</strong> <?= $event['status'] == 'resolved' ? $event['resolveDate'] : 'Unresolved' ?> <p>
-                        <p class="category"><strong>Related to another ticker:</strong> <?= strtoupper($event['related']) ?> <p>
+                        <h4 class="card-title"><font color="#A940B6" ><strong>Subject:</strong> </font><?= $event['subject'] ?></h4>
+                        <p class="category"><font color="#A940B6" ><strong>ID:</strong> </font><?= $event['eventID'] ?></p>
+                        <p class="category"><font color="#A940B6" ><strong>Created By:</strong></font> <?= $author['name'] ?></p>
+                        <p class="category"><font color="#A940B6" ><strong>Date:</strong> </font><?= $event['openDate'] ?></p>
+                        <p class="category"><font color="#A940B6" ><strong>Description:</strong></font> <?= $event['description'] ?></p>
+                        <p class="category"><font color="#A940B6" ><strong>Status:</strong> </font><?= strtoupper($event['status']) ?> <p>
+                        <p class="category"><font color="#A940B6" ><strong>Assigned To:</strong></font> <?= $event['assigned'] ?></p>
+                        <p class="category"><font color="#A940B6" ><strong>Resolve Date:</strong> </font><?= $event['status'] == 'resolved' ? $event['resolveDate'] : 'Unresolved' ?> <p>
+                        <p class="category"><font color="#A940B6" ><strong>Related to another ticker:</strong> </font><?= strtoupper($event['related']) ?> <p>
                     </div>
                  
                         <div class="actions" style="    display: flex;
@@ -211,37 +211,6 @@ function sendStatus() {
     </div>
         </div>
 
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav class="float-left">
-                    <ul>
-
-                        <li>
-                            <a href="..//about.html">
-                                footer1
-                            </a>
-                        </li>
-                        <li>
-                            <a href="..//about.html">
-                                footer2
-                            </a>
-                        </li>
-                        <li>
-                            <a href="..//about.html">
-                                footer3
-                            </a>
-                        </li>
-                        <li>
-                            <a href="..//about.html">
-                                footer4
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
-
-            </div>
-        </footer>
     </div>
 </div>
 
